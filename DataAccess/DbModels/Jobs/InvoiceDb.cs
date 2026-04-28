@@ -3,10 +3,13 @@ using onyx_services_core.DataAccess.DbModels.Jobs.Items;
 
 namespace onyx_services_core.DataAccess.DbModels.Jobs
 {
-    public class Invoice : BaseJob
+    public class InvoiceDb 
     {
-
-        public List<Product> InvoiceItems { get; set; }
+        public long Id { get; set; }
+        public long JobId { get; set; }
+        public long TechnicianId { get; set; }
+        public long CustomerId { get; set; }
+        public bool IsPaid { get; set; }
         public DateTime DatePaid { get; set; }
         public DateTime DateDue { get; set; }
     }

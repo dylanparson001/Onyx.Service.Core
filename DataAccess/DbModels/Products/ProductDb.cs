@@ -1,8 +1,8 @@
-﻿namespace onyx_services_core.DataAccess.DbModels.Jobs.Items
+﻿namespace onyx_services_core.DataAccess.DbModels.Products
 {
-    public class Product
+    public class ProductDb
     {
-        public Guid Id { get; set; }
+        public long Id { get; set; }
         public string Name { get; set; } = "";
         public string Description { get; set; } = "";
         public decimal Price { get; set; } = 0;

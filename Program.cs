@@ -4,7 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using onyx_services_core.DataAccess.Auth.Context;
 using onyx_services_core.DataAccess.Auth.Models;
+using onyx_services_core.DataAccess.Helpers;
 using Serilog;
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -45,7 +47,13 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+    });
+
+
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen();
@@ -54,8 +62,13 @@ builder.Services.AddSwaggerGen();
 
 // Managers
 
+// SeriLog
 builder.Host.UseSerilog((context, configuration) =>
     configuration.ReadFrom.Configuration(context.Configuration));
+
+// Use UseUrls instead of ConfigureKestrel - more reliable
+var listenUrl = $"https://*:8080";
+builder.WebHost.UseUrls(listenUrl);
 
 
 var app = builder.Build();
@@ -81,5 +94,8 @@ app.UseAuthorization();
 app.UseAuthentication();
 
 app.MapControllers();
+
+
+//SeedDataHelper.CreateTestProfiles();
 
 app.Run();

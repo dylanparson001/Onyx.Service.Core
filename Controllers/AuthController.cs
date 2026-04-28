@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using onyx_services_core.DataAccess.Auth.Models;
 using onyx_services_core.Dtos.Auth;
+using onyx_services_core.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
@@ -83,12 +84,12 @@ namespace onyx_services_core.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginDto dto)
+        public async Task<ActionResult<LoginResponse>> Login([FromBody] LoginDto dto)
         {
             try
             {
 
-                var user = await _userManager.FindByNameAsync(dto.Username);
+                var user = await _userManager.FindByNameAsync(dto.UserName);
                 if (user is null)
                     return Unauthorized(new { message = "Invalid username or password." });
 
@@ -104,7 +105,14 @@ namespace onyx_services_core.Controllers
             }
         }
 
-        private async Task<object> CreateJwtResponseAsync(User user)
+        [HttpGet]
+        [Route("Test")]
+        public string GetAString()
+        {
+            return "Woohoo~";
+        }
+
+        private async Task<LoginResponse> CreateJwtResponseAsync(User user)
         {
             var jwtSection = _configuration.GetSection("JwtSettings");
             var secret = jwtSection["Secret"]!;
@@ -138,13 +146,13 @@ namespace onyx_services_core.Controllers
                 expires: expires,
                 signingCredentials: creds);
 
-            return new
+            return new LoginResponse
             {
-                accessToken = new JwtSecurityTokenHandler().WriteToken(token),
-                tokenType = "Bearer",
-                expiresUtc = expires,
-                userName = user.UserName,
-                roles
+                Token = new JwtSecurityTokenHandler().WriteToken(token),
+                TokenType = "Bearer",
+                TokenExpires = expires,
+                UserName = user.UserName ?? "",
+                Roles = roles.ToList()
             };
         }
     }
