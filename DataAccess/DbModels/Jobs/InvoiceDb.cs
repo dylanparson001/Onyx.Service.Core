@@ -1,7 +1,4 @@
-﻿using onyx_services_core.Common.Enums;
-using onyx_services_core.DataAccess.DbModels.Jobs.Items;
-
-namespace onyx_services_core.DataAccess.DbModels.Jobs
+﻿namespace onyx_services_core.DataAccess.DbModels.Jobs
 {
     public class InvoiceDb 
     {

@@ -19,7 +19,7 @@ namespace onyx_services_core.DataAccess.Helpers
 
         public static string GetDefaultConnection()
         {
-            return GetSetting("ConnectionStrings: DefaultConnection");
+            return GetSetting("ConnectionStrings:DefaultConnection");
         }
     }
 }

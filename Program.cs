@@ -5,6 +5,9 @@ using Microsoft.IdentityModel.Tokens;
 using onyx_services_core.DataAccess.Auth.Context;
 using onyx_services_core.DataAccess.Auth.Models;
 using onyx_services_core.DataAccess.Helpers;
+using onyx_services_core.DataAccess.Interfaces;
+using onyx_services_core.DataAccess.Repos;
+using onyx_services_core.Managers;
 using Serilog;
 using System.Text.Json;
 
@@ -59,8 +62,10 @@ builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen();
 
 // Repos
+builder.Services.AddScoped<IJobRepo, JobRepo>();
 
 // Managers
+builder.Services.AddScoped<JobsManager>();
 
 // SeriLog
 builder.Host.UseSerilog((context, configuration) =>

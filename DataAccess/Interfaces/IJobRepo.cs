@@ -6,6 +6,7 @@ namespace onyx_services_core.DataAccess.Interfaces
     {
         Task CreateJob(JobDb job);
         Task RemoveJob(long id, string removalReason);
-        Task UpdateJob(JobDb job);
+        Task UpdateJobDescription(long id, string newDescription);
+        Task<List<JobDb>> GetJobsByTechnicianIdAndDate(long  technicianId, DateTime serviceDate);
     }
 }

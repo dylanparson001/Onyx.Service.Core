@@ -1,4 +1,5 @@
 ﻿using onyx_services_core.Common.Enums;
+using onyx_services_core.Dtos.Jobs;
 
 namespace onyx_services_core.DataAccess.DbModels.Jobs
 {
@@ -12,11 +13,30 @@ namespace onyx_services_core.DataAccess.DbModels.Jobs
         public DateTime ScheduledEndTime { get; set; }
         public DateTime? ActualStartTime { get; set; }
         public DateTime? ActualEndTime { get; set; }
-        public bool IsCompleted { get; set; }
+        public bool? IsCompleted { get; set; }
         public string JobDescription { get; set; } = "";
         public JobStatus Status { get; set; }
-        public DateTime RemovedAt { get; set; }
-        public string RemovedReason { get; set; } = "";
+        public DateTime? RemovedAt { get; set; }
+        public string? RemovedReason { get; set; } = "";
         public DateTime ServiceDate { get; set; }
+
+        public JobsDto ToDto()
+        {
+            return new JobsDto()
+            {
+                Id = Id,
+                JobGuid = JobGuid,
+                TechnicianId = TechnicianId,
+                CustomerId = CustomerId,
+                ScheduledEndTime = ScheduledEndTime,
+                ScheduledStartTime = ScheduledStartTime,
+                ActualEndTime = ActualEndTime,
+                ActualStartTime = ActualStartTime,
+                IsCompleted = IsCompleted,
+                JobDescription = JobDescription,
+                ServiceDate = ServiceDate,
+                Status = Status,
+            };
+        }
     }
 }

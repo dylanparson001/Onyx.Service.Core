@@ -2,7 +2,7 @@
 
 namespace onyx_services_core.DataAccess.DbModels.Contacts.Customers
 {
-    public class Customer : ContactDb
+    public class CustomerDb : ContactDb
     {
 
 
