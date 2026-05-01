@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/Onyx.Api/">
+    <Project Path="Onyx.Service.Api.csproj" />
+    <Project Path="Onyx.Service.Api.Tests/Onyx.Service.Api.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Onyx.Application/" />
+  <Folder Name="/Onyx.Contracts/" />
+  <Folder Name="/Onyx.Domain/" />
+  <Folder Name="/Onyx.Infrastructure/" />
+</Solution>

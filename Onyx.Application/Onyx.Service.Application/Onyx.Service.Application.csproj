@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Onyx.Contracts\Onyx.Service.Contracts\Onyx.Service.Contracts.csproj" />
+    <ProjectReference Include="..\..\Onyx.Domain\Onyx.Service.Domain\Onyx.Service.Domain.csproj" />
+    <ProjectReference Include="..\..\Onyx.Infrastructure\Onyx.Service.Infrastructure\Onyx.Service.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
