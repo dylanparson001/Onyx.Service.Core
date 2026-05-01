@@ -54,11 +54,11 @@ namespace onyx_services_core.DataAccess.Repos
 
                 using var connection = new SqlConnection(connectionString);
 
-                string query = $"SELECT Id, JobGuid, TechnicianId, CustomerId, ScheduledStartTime, ScheduledEndTime," +
-                               $"ActualStartTime, ActualEndTime, IsCompleted, JobDescription, Status, RemovedAt, RemovedReason, " +
-                               $"ServiceDate " +
-                               $"FROM Jobs " +
-                               $"WHERE TechnicianId = @TechnicianId AND ServiceDate = @ServiceDate AND RemovedAt IS NULL";
+                string query = @"SELECT Id, JobGuid, TechnicianId, CustomerId, ScheduledStartTime, ScheduledEndTime, 
+                                ActualStartTime, ActualEndTime, IsCompleted, JobDescription, Status, RemovedAt, RemovedReason, 
+                                ServiceDate 
+                                FROM Jobs 
+                                WHERE TechnicianId = @TechnicianId AND ServiceDate = @ServiceDate AND RemovedAt IS NULL";
 
                 await connection.OpenAsync();
 
@@ -137,14 +137,16 @@ namespace onyx_services_core.DataAccess.Repos
 
                 DateTime removedAt = DateTime.Now;
 
-                string query = "UPDATE Jobs " +
-                    "SET RemovedAt = @RemovedAtDate, RemovedReason = @RemovedReason" +
-                    "WHERE Id = @Id";
+                string query = @"UPDATE Jobs 
+                    SET RemovedAt = @RemovedAtDate, RemovedReason = @RemovedReason, Status = @NewStatus
+                    WHERE Id = @Id";
 
                 using var command = new SqlCommand(query, sqlConnection);
 
+                command.Parameters.AddWithValue("@Id", id);
                 command.Parameters.AddWithValue("@RemovedAtDate", removedAt);
                 command.Parameters.AddWithValue("@RemovedReason", removalReason);
+                command.Parameters.AddWithValue("@NewStatus", JobStatus.Cancelled.GetDescription());
 
                 await sqlConnection.OpenAsync();
 
