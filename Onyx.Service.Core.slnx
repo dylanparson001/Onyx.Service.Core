@@ -1,0 +1,19 @@
+<Solution>
+  <Folder Name="/Onyx.Api/">
+    <Project Path="Onyx.Service.Api.Tests/Onyx.Service.Api.Tests.csproj" />
+    <Project Path="Onyx.Service.Api/Onyx.Service.Api.csproj" />
+  </Folder>
+  <Folder Name="/Onyx.Application/">
+    <Project Path="../Onyx.Application/Onyx.Service.Application.Tests/Onyx.Service.Application.Tests.csproj" />
+    <Project Path="../Onyx.Application/Onyx.Service.Application/Onyx.Service.Application.csproj" />
+  </Folder>
+  <Folder Name="/Onyx.Contracts/">
+    <Project Path="../Onyx.Contracts/Onyx.Service.Contracts/Onyx.Service.Contracts.csproj" />
+  </Folder>
+  <Folder Name="/Onyx.Domain/">
+    <Project Path="../Onyx.Domain/Onyx.Service.Domain/Onyx.Service.Domain.csproj" />
+  </Folder>
+  <Folder Name="/Onyx.Infrastructure/">
+    <Project Path="../Onyx.Infrastructure/Onyx.Service.Infrastructure/Onyx.Service.Infrastructure.csproj" />
+  </Folder>
+</Solution>
