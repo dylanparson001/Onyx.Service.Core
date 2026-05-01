@@ -1,19 +1,22 @@
 <Solution>
   <Folder Name="/Onyx.Api/">
-    <Project Path="Onyx.Service.Api.Tests/Onyx.Service.Api.Tests.csproj" />
-    <Project Path="Onyx.Service.Api/Onyx.Service.Api.csproj" />
+    <Project Path="Onyx.Api/Onyx.Service.Api.Tests/Onyx.Service.Api.Tests.csproj" />
+    <Project Path="Onyx.Api/Onyx.Service.Api/Onyx.Service.Api.csproj" />
   </Folder>
   <Folder Name="/Onyx.Application/">
-    <Project Path="../Onyx.Application/Onyx.Service.Application.Tests/Onyx.Service.Application.Tests.csproj" />
-    <Project Path="../Onyx.Application/Onyx.Service.Application/Onyx.Service.Application.csproj" />
+    <Project Path="Onyx.Application/Onyx.Service.Application.Tests/Onyx.Service.Application.Tests/Onyx.Service.Application.Tests.csproj" Id="ab59efaf-6ea1-4e22-9652-7e452690ee81" />
+    <Project Path="Onyx.Application/Onyx.Service.Application/Onyx.Service.Application.csproj" />
   </Folder>
   <Folder Name="/Onyx.Contracts/">
-    <Project Path="../Onyx.Contracts/Onyx.Service.Contracts/Onyx.Service.Contracts.csproj" />
+    <Project Path="Onyx.Contracts/Onyx.Service.Contracts.Tests/Onyx.Service.Contracts.Tests.csproj" Id="928b7509-87f0-462d-8726-1b9edff0e64f" />
+    <Project Path="Onyx.Contracts/Onyx.Service.Contracts/Onyx.Service.Contracts.csproj" />
   </Folder>
   <Folder Name="/Onyx.Domain/">
-    <Project Path="../Onyx.Domain/Onyx.Service.Domain/Onyx.Service.Domain.csproj" />
+    <Project Path="Onyx.Domain/Onyx.Service.Domain.Tests/Onyx.Service.Domain.Tests.csproj" Id="03be92a8-27ae-446b-8a6b-d23de64693b3" />
+    <Project Path="Onyx.Domain/Onyx.Service.Domain/Onyx.Service.Domain.csproj" />
   </Folder>
   <Folder Name="/Onyx.Infrastructure/">
-    <Project Path="../Onyx.Infrastructure/Onyx.Service.Infrastructure/Onyx.Service.Infrastructure.csproj" />
+    <Project Path="Onyx.Infrastructure/Onyx.Service.Infrastructure.Tests/Onyx.Service.Infrastructure.Tests.csproj" Id="78ec35bd-9ca0-42fa-8087-f85054164fac" />
+    <Project Path="Onyx.Infrastructure/Onyx.Service.Infrastructure/Onyx.Service.Infrastructure.csproj" />
   </Folder>
 </Solution>
