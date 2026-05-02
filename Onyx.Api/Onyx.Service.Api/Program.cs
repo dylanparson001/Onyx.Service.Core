@@ -65,7 +65,7 @@ public partial class Program
         builder.Services.AddSwaggerGen();
 
         // Repos
-        builder.Services.AddScoped<IJobRepo, JobRepo>();
+        builder.Services.AddScoped<IJobsRepo, JobsRepo>();
 
         // Managers
         builder.Services.AddScoped<JobsManager>();

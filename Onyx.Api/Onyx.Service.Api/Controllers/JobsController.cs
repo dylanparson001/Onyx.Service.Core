@@ -15,45 +15,54 @@ namespace Onyx.Service.Api.Controllers
 
         [HttpGet]
         [Route("get-active-jobs")]
-        public async Task<ActionResult<List<JobsDto>>> GetJobsForTechnicianForServiceDate(long id, string serviceDate)
+        public async Task<ActionResult<List<JobDto>>> GetJobsForTechnicianForServiceDate(long id, string serviceDate)
         {
             try
             {
-                if (id <= 0)
-                    return BadRequest("Enter a valid Id");
-
-                if (string.IsNullOrEmpty(serviceDate))
-                    return BadRequest("Service date was empty");
-
-                bool isValidDate = DateTime.TryParse(serviceDate, out DateTime dateTimeService);
-
-                if (!isValidDate)
-                    return BadRequest("Enter a Valid Date");
-
-                var jobDtos = await _jobsManager.GetActiveJobsByTechnicianIdAndServiceDate(id, dateTimeService);
+                var jobDtos = await _jobsManager.GetActiveJobsByTechnicianIdAndServiceDate(id, serviceDate);
 
                 return Ok(jobDtos);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, ex.Message);
-                return BadRequest("Error retrieving jobs");
+                return BadRequest($"Error retrieving jobs: {ex.Message}");
+            }
+        }
+
+        [HttpPost("create-job")]
+        public async Task<ActionResult<NewJobResponse>> CreateNewJob(NewJobRequest jobDto)
+        {
+            try
+            {
+                if (jobDto == null)
+                    return BadRequest("Job sent was null");
+
+                await _jobsManager.CreateJob(jobDto.ToJob());
+
+                return Ok(new NewJobResponse());
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return BadRequest(new NewJobResponse(ex.Message));
             }
         }
 
         [HttpPost]
-        [Route("remove-job")]
-        public async Task<ActionResult> RemoveJob(long id, string removalReason)
+        [Route("cancel-job")]
+        public async Task<ActionResult> CancelJob(long id, string removalReason)
         {
             try
             {
-                await _jobsManager.RemoveJob(id, removalReason);
-                return NoContent();
+                await _jobsManager.CancelJob(id, removalReason);
 
+                return NoContent();
             }
             catch (Exception ex)
             {
-                return BadRequest("Error removing job");
+                _logger.LogError(ex, ex.Message);
+                return BadRequest($"Error removing job: {ex.Message}");
             }
         }
     }

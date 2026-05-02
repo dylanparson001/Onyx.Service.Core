@@ -1,17 +1,17 @@
 ﻿using System.ComponentModel;
 
-namespace Onyx.Service.Domain.Jobs
+namespace Onyx.Service.Domain.Enums
 {
     public enum JobStatus
     {
-        [Description("Open")]
-        Open,
+        [Description("Scheduled")]
+        Scheduled,
         [Description("Pending")]
         Pending,
         [Description("Started")]
         Started,
         [Description("Completed")]
-        Complete,
+        Completed,
         [Description("Cancelled")]
         Cancelled
     }

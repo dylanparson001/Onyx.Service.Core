@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using Onyx.Service.Contracts;
 using Onyx.Service.Contracts.Dtos.Auth;
 using Onyx.Service.Contracts.Models;
+using Onyx.Service.Contracts.Responses;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 

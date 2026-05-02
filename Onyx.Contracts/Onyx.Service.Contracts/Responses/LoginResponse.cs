@@ -1,4 +1,4 @@
-﻿namespace Onyx.Service.Contracts
+﻿namespace Onyx.Service.Contracts.Responses
 {
     public class LoginResponse
     {
