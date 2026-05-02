@@ -1,6 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
-using Onyx.Service.Contracts.Enums;
 using Onyx.Service.Domain.Auth;
+using Onyx.Service.Domain.Enums;
 using Onyx.Service.Infrastructure.DataAccess.DbModels.Contacts.Customers;
 using Onyx.Service.Infrastructure.DataAccess.DbModels.Contacts.Employees;
 using Onyx.Service.Infrastructure.DataAccess.DbModels.Jobs;
@@ -93,10 +93,10 @@ namespace Onyx.Service.Infrastructure.DataAccess.Helpers
         private static List<JobDb> CreateJobModels()
         {
             return [
-                new JobDb() {JobGuid = Guid.NewGuid(), TechnicianId = 1, CustomerId = 1, ScheduledStartTime = DateTime.Now.AddHours(-2), ScheduledEndTime = DateTime.Now, IsCompleted = false, JobDescription = "This is a test job", Status = JobStatus.Open, ServiceDate = DateTime.Today },
-                new JobDb() {JobGuid = Guid.NewGuid(), TechnicianId = 2, CustomerId = 2, ScheduledStartTime = DateTime.Now.AddHours(-2), ScheduledEndTime = DateTime.Now, IsCompleted = false, JobDescription = "This is a test job", Status = JobStatus.Open, ServiceDate = DateTime.Today },
-                new JobDb() {JobGuid = Guid.NewGuid(), TechnicianId = 3, CustomerId = 3, ScheduledStartTime = DateTime.Now.AddHours(-2), ScheduledEndTime = DateTime.Now, IsCompleted = false, JobDescription = "This is a test job", Status = JobStatus.Open, ServiceDate = DateTime.Today },
-                new JobDb() {JobGuid = Guid.NewGuid(), TechnicianId = 4, CustomerId = 4, ScheduledStartTime = DateTime.Now.AddHours(-2), ScheduledEndTime = DateTime.Now, IsCompleted = false, JobDescription = "This is a test job", Status = JobStatus.Open, ServiceDate = DateTime.Today },
+                new JobDb() {JobGuid = Guid.NewGuid(), TechnicianId = 1, CustomerId = 1, ScheduledStartTime = DateTime.Now.AddHours(-2), ScheduledEndTime = DateTime.Now, IsCompleted = false, JobDescription = "This is a test job", Status = JobStatus.Scheduled, ServiceDate = DateTime.Today },
+                new JobDb() {JobGuid = Guid.NewGuid(), TechnicianId = 2, CustomerId = 2, ScheduledStartTime = DateTime.Now.AddHours(-2), ScheduledEndTime = DateTime.Now, IsCompleted = false, JobDescription = "This is a test job", Status = JobStatus.Scheduled, ServiceDate = DateTime.Today },
+                new JobDb() {JobGuid = Guid.NewGuid(), TechnicianId = 3, CustomerId = 3, ScheduledStartTime = DateTime.Now.AddHours(-2), ScheduledEndTime = DateTime.Now, IsCompleted = false, JobDescription = "This is a test job", Status = JobStatus.Scheduled, ServiceDate = DateTime.Today },
+                new JobDb() {JobGuid = Guid.NewGuid(), TechnicianId = 4, CustomerId = 4, ScheduledStartTime = DateTime.Now.AddHours(-2), ScheduledEndTime = DateTime.Now, IsCompleted = false, JobDescription = "This is a test job", Status = JobStatus.Scheduled, ServiceDate = DateTime.Today },
                 ];
         }
 

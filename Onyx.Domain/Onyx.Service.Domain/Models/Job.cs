@@ -1,8 +1,11 @@
-﻿using Onyx.Service.Contracts.Enums;
+﻿using Onyx.Service.Domain.Enums;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace Onyx.Service.Contracts.Dtos.Jobs
+namespace Onyx.Service.Domain.Models
 {
-    public class JobsDto
+    public class Job
     {
         public long Id { get; set; }
         public Guid JobGuid { get; set; }
@@ -16,5 +19,9 @@ namespace Onyx.Service.Contracts.Dtos.Jobs
         public string JobDescription { get; set; } = "";
         public JobStatus Status { get; set; }
         public DateTime ServiceDate { get; set; }
+
+        #region Conversion Methods
+  
+        #endregion
     }
 }

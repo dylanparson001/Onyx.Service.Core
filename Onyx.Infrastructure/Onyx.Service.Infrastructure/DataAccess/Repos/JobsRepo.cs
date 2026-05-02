@@ -1,5 +1,4 @@
 ﻿using Microsoft.Data.SqlClient;
-using Onyx.Service.Contracts.Enums;
 using Onyx.Service.Domain.Enums;
 using Onyx.Service.Infrastructure.DataAccess.DbModels.Jobs;
 using Onyx.Service.Infrastructure.DataAccess.Helpers;
@@ -7,9 +6,9 @@ using Onyx.Service.Infrastructure.DataAccess.Interfaces;
 
 namespace Onyx.Service.Infrastructure.DataAccess.Repos
 {
-    public class JobRepo : IJobRepo
+    public class JobsRepo : IJobsRepo
     {
-        public JobRepo()
+        public JobsRepo()
         {
 
         }
@@ -26,12 +25,21 @@ namespace Onyx.Service.Infrastructure.DataAccess.Repos
 
                 await sqlConnection.OpenAsync();
 
-                string query = $"INSERT INTO Jobs  (JobGuid, TechnicianId, CustomerId, ScheduledStartTime, ScheduledEndTime" +
-                    $" JobDescription, Status, ServiceDate)" +
-                    $"VALUES ('{job.JobGuid}', '{job.TechnicianId}', '{job.CustomerId}', '{job.ScheduledStartTime}', " +
-                    $"'{job.ScheduledEndTime}', '{job.JobDescription}', '{job.Status}', '{job.ServiceDate}')";
+                string query = @"INSERT INTO Jobs (JobGuid, TechnicianId, CustomerId, ScheduledStartTime, ScheduledEndTime, 
+                JobDescription, Status, ServiceDate) 
+                VALUES (@JobGuid, @TechnicianId, @CustomerId, @ScheduledStartTime,
+                @ScheduledEndTime, @JobDescription, @Status, @ServiceDate)";
 
                 using var command = new SqlCommand(query, sqlConnection);
+
+                command.Parameters.AddWithValue("@JobGuid", job.JobGuid);
+                command.Parameters.AddWithValue("@TechnicianId", job.TechnicianId);
+                command.Parameters.AddWithValue("@CustomerId", job.CustomerId);
+                command.Parameters.AddWithValue("@ScheduledStartTime", job.ScheduledStartTime);
+                command.Parameters.AddWithValue("@ScheduledEndTime", job.ScheduledEndTime);
+                command.Parameters.AddWithValue("@JobDescription", job.JobDescription);
+                command.Parameters.AddWithValue("@Status", job.Status);
+                command.Parameters.AddWithValue("@ServiceDate", job.ServiceDate);
 
                 await command.ExecuteNonQueryAsync();
 
@@ -39,7 +47,7 @@ namespace Onyx.Service.Infrastructure.DataAccess.Repos
             }
             catch (Exception ex)
             {
-
+                throw;
             }
 
         }
@@ -87,7 +95,7 @@ namespace Onyx.Service.Infrastructure.DataAccess.Repos
 
                         var jobDescription = reader["JobDescription"].ToString();
 
-                        var status = Enum.Parse<JobStatus>(reader["Status"].ToString());
+                        var status = Enum.Parse<JobStatus>(reader["Status"].ToString()!);
 
                         DateTime actualStartTime = new();
                         if (!string.IsNullOrEmpty(reader["ActualStartTime"].ToString()))
@@ -127,7 +135,7 @@ namespace Onyx.Service.Infrastructure.DataAccess.Repos
             }
         }
 
-        public async Task RemoveJob(long id, string removalReason)
+        public async Task CancelJob(long id, string removalReason)
         {
             try
             {

@@ -1,5 +1,6 @@
 ﻿using Onyx.Service.Contracts.Dtos.Jobs;
-using Onyx.Service.Contracts.Enums;
+using Onyx.Service.Domain.Enums;
+using Onyx.Service.Domain.Models;
 
 namespace Onyx.Service.Infrastructure.DataAccess.DbModels.Jobs
 {
@@ -20,9 +21,27 @@ namespace Onyx.Service.Infrastructure.DataAccess.DbModels.Jobs
         public string? RemovedReason { get; set; } = "";
         public DateTime ServiceDate { get; set; }
 
-        public JobsDto ToDto()
+        public static JobDb ConvertFromJobModel(Job job)
         {
-            return new JobsDto()
+            return new JobDb()
+            {
+                Id = job.Id,
+                JobGuid = job.JobGuid,
+                TechnicianId = job.TechnicianId,
+                CustomerId = job.CustomerId,
+                ScheduledEndTime = job.ScheduledEndTime,
+                ScheduledStartTime = job.ScheduledStartTime,
+                ActualEndTime = job.ActualEndTime,
+                ActualStartTime = job.ActualStartTime,
+                IsCompleted = job.IsCompleted,
+                JobDescription = job.JobDescription,
+                ServiceDate = job.ServiceDate,
+                Status = job.Status,
+            };
+        }
+        public JobDto ToJobDto()
+        {
+            return new JobDto()
             {
                 Id = Id,
                 JobGuid = JobGuid,
@@ -30,12 +49,9 @@ namespace Onyx.Service.Infrastructure.DataAccess.DbModels.Jobs
                 CustomerId = CustomerId,
                 ScheduledEndTime = ScheduledEndTime,
                 ScheduledStartTime = ScheduledStartTime,
-                ActualEndTime = ActualEndTime,
-                ActualStartTime = ActualStartTime,
-                IsCompleted = IsCompleted,
                 JobDescription = JobDescription,
                 ServiceDate = ServiceDate,
-                Status = Status,
+                Status = Status.GetDescription(),
             };
         }
     }
