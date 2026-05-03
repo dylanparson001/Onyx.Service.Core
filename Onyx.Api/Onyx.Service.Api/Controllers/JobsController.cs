@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Onyx.Service.Application.Managers;
 using Onyx.Service.Contracts.Dtos.Jobs;
+using Onyx.Service.Domain.Enums;
 
 namespace Onyx.Service.Api.Controllers
 {
@@ -13,8 +14,7 @@ namespace Onyx.Service.Api.Controllers
             _jobsManager = jobsManager;
         }
 
-        [HttpGet]
-        [Route("get-active-jobs")]
+        [HttpGet("get-active-jobs")]
         public async Task<ActionResult<List<JobDto>>> GetJobsForTechnicianForServiceDate(long id, string serviceDate)
         {
             try
@@ -38,9 +38,9 @@ namespace Onyx.Service.Api.Controllers
                 if (jobDto == null)
                     return BadRequest("Job sent was null");
 
-                await _jobsManager.CreateJob(jobDto.ToJob());
+                NewJobResponse newJobResponse = await _jobsManager.CreateJob(jobDto.ToJob());
 
-                return Ok(new NewJobResponse());
+                return Ok(newJobResponse);
             }
             catch (Exception ex)
             {
@@ -49,9 +49,8 @@ namespace Onyx.Service.Api.Controllers
             }
         }
 
-        [HttpPost]
-        [Route("cancel-job")]
-        public async Task<ActionResult> CancelJob(long id, string removalReason)
+        [HttpPost("cancel-job")]
+        public async Task<ActionResult> CancelJob(long id, CancellationReason removalReason)
         {
             try
             {

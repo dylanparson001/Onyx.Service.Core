@@ -26,9 +26,9 @@ namespace Onyx.Service.Infrastructure.DataAccess.Repos
                 await sqlConnection.OpenAsync();
 
                 string query = @"INSERT INTO Jobs (JobGuid, TechnicianId, CustomerId, ScheduledStartTime, ScheduledEndTime, 
-                JobDescription, Status, ServiceDate) 
-                VALUES (@JobGuid, @TechnicianId, @CustomerId, @ScheduledStartTime,
-                @ScheduledEndTime, @JobDescription, @Status, @ServiceDate)";
+                                    JobDescription, Status, ServiceDate, IsCompleted) 
+                                    VALUES (@JobGuid, @TechnicianId, @CustomerId, @ScheduledStartTime,
+                                    @ScheduledEndTime, @JobDescription, @Status, @ServiceDate, @IsCompleted)";
 
                 using var command = new SqlCommand(query, sqlConnection);
 
@@ -40,6 +40,7 @@ namespace Onyx.Service.Infrastructure.DataAccess.Repos
                 command.Parameters.AddWithValue("@JobDescription", job.JobDescription);
                 command.Parameters.AddWithValue("@Status", job.Status);
                 command.Parameters.AddWithValue("@ServiceDate", job.ServiceDate);
+                command.Parameters.AddWithValue("@IsCompleted", false);
 
                 await command.ExecuteNonQueryAsync();
 
@@ -63,10 +64,11 @@ namespace Onyx.Service.Infrastructure.DataAccess.Repos
                 using var connection = new SqlConnection(connectionString);
 
                 string query = @"SELECT Id, JobGuid, TechnicianId, CustomerId, ScheduledStartTime, ScheduledEndTime, 
-                                ActualStartTime, ActualEndTime, IsCompleted, JobDescription, Status, RemovedAt, RemovedReason, 
-                                ServiceDate 
-                                FROM Jobs 
-                                WHERE TechnicianId = @TechnicianId AND ServiceDate = @ServiceDate AND RemovedAt IS NULL";
+                                    ActualStartTime, ActualEndTime, IsCompleted, JobDescription, Status, RemovedAt, RemovedReason, 
+                                    ServiceDate 
+                                    FROM Jobs 
+                                    WHERE TechnicianId = @TechnicianId AND ServiceDate = @ServiceDate AND RemovedAt IS NULL
+                                    ORDER BY ScheduledStartTime";
 
                 await connection.OpenAsync();
 
@@ -135,7 +137,7 @@ namespace Onyx.Service.Infrastructure.DataAccess.Repos
             }
         }
 
-        public async Task CancelJob(long id, string removalReason)
+        public async Task CancelJob(long id, CancellationReason removalReason)
         {
             try
             {
@@ -146,15 +148,15 @@ namespace Onyx.Service.Infrastructure.DataAccess.Repos
                 DateTime removedAt = DateTime.Now;
 
                 string query = @"UPDATE Jobs 
-                    SET RemovedAt = @RemovedAtDate, RemovedReason = @RemovedReason, Status = @NewStatus
+                    SET RemovedAt = @RemovedAtDate, RemovedReason = @RemovedReason, Status = @Cancelled
                     WHERE Id = @Id";
 
                 using var command = new SqlCommand(query, sqlConnection);
 
                 command.Parameters.AddWithValue("@Id", id);
                 command.Parameters.AddWithValue("@RemovedAtDate", removedAt);
-                command.Parameters.AddWithValue("@RemovedReason", removalReason);
-                command.Parameters.AddWithValue("@NewStatus", JobStatus.Cancelled.GetDescription());
+                command.Parameters.AddWithValue("@RemovedReason", removalReason.GetDescription());
+                command.Parameters.AddWithValue("@Cancelled", JobStatus.Cancelled.GetDescription());
 
                 await sqlConnection.OpenAsync();
 
@@ -176,9 +178,9 @@ namespace Onyx.Service.Infrastructure.DataAccess.Repos
 
                 using var sqlConnection = new SqlConnection(connectionString);
 
-                string query = "UPDATE Jobs " +
-                    "SET JobDescription = @NewDescription" +
-                    "WHERE Id = @Id";
+                string query = @"UPDATE Jobs 
+                    SET JobDescription = @NewDescription
+                    WHERE Id = @Id";
 
                 using var command = new SqlCommand(query, sqlConnection);
 

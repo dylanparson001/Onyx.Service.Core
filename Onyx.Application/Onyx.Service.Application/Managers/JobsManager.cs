@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using Onyx.Service.Application.Constants;
 using Onyx.Service.Contracts.Dtos.Jobs;
 using Onyx.Service.Domain.Enums;
 using Onyx.Service.Domain.Models;
@@ -34,28 +35,34 @@ namespace Onyx.Service.Application.Managers
         /// <param name="job">The job information to create. The job must have a non-empty description, a scheduled start time earlier
         /// than the scheduled end time, and a status of either Scheduled or Pending.</param>
         /// <returns>A task that represents the asynchronous operation.</returns>
-        public async Task CreateJob(Job job)
+        public async Task<NewJobResponse> CreateJob(Job job)
         {
+            NewJobResponse newJobResponse = new();
             try
             {
                 if (job == null)
-                    throw new Exception("No job was sent");
+                    throw new Exception(JobExceptionConstants.NullJobError);
 
                 if (job.ScheduledStartTime >= job.ScheduledEndTime)
-                    throw new Exception("Start time cannot be greater than end time");
+                    throw new Exception(JobExceptionConstants.StartTimeGreaterError);
 
                 if (string.IsNullOrEmpty(job.JobDescription))
-                    throw new Exception("Job Description cannot be empty");
+                    throw new Exception(JobExceptionConstants.JobDescriptionEmptyError);
 
                 if (job.Status != JobStatus.Scheduled && job.Status != JobStatus.Pending)
-                    throw new Exception("New job status should be either scheduled or pending");
+                    throw new Exception(JobExceptionConstants.JobStatusShouldBeScheduledOrPending);
 
                 await _jobsRepo.CreateJob(JobDb.ConvertFromJobModel(job));
+
+                return newJobResponse;
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "JobsManager Create Job Error");
-                throw;
+
+                newJobResponse.IsSuccess = false;
+                newJobResponse.ErrorMessage = ex.Message;
+                return newJobResponse;
             }
 
         }
@@ -94,15 +101,12 @@ namespace Onyx.Service.Application.Managers
         }
 
 
-        public async Task CancelJob(long id, string removalReason)
+        public async Task CancelJob(long id, CancellationReason removalReason)
         {
             try
             {
                 if (id <= 0)
                     throw new Exception("Id must be greater than zero");
-
-                if (string.IsNullOrEmpty(removalReason))
-                    throw new Exception("Cancelling a job must have a reason described");
 
                 await _jobsRepo.CancelJob(id, removalReason);
             }

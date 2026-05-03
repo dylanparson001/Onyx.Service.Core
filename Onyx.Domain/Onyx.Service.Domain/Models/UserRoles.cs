@@ -1,14 +1,14 @@
 ﻿using System.ComponentModel;
 
-namespace Onyx.Service.Contracts.Models
+namespace Onyx.Service.Domain.Models
 {
     public enum UserRoles
     {
-        [Description("ADMIN")]
-        Admin = 0,
-        [Description("TECHNICIAN")]
-        Technician = 1,
-        [Description("MANAGER")]
-        Manager = 2,
+        [Description("Admin")]
+        Admin,
+        [Description("Technician")]
+        Technician,
+        [Description("Manager")]
+        Manager,
     }
 }
