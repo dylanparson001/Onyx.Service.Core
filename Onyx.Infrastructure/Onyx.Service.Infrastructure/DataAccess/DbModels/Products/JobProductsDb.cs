@@ -1,6 +1,10 @@
-﻿namespace Onyx.Service.Infrastructure.DataAccess.DbModels.Products
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Onyx.Service.Infrastructure.DataAccess.DbModels.Products
 {
-    public class InvoiceProductsDb
+    public class JobProductsDb
     {
         public int Id { get; set; }
         public long InvoiceId { get; set; }
