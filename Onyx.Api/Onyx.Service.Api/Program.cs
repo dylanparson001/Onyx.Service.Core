@@ -66,9 +66,11 @@ public partial class Program
 
         // Repos
         builder.Services.AddScoped<IJobsRepo, JobsRepo>();
+        builder.Services.AddScoped<IInvoicesRepo, InvoicesRepo>();
 
         // Managers
         builder.Services.AddScoped<JobsManager>();
+        builder.Services.AddScoped<InvoicesManager>();
 
         // SeriLog
         builder.Host.UseSerilog((context, configuration) =>

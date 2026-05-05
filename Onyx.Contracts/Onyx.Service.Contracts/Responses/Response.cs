@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Onyx.Service.Contracts.Dtos.Jobs
+﻿namespace Onyx.Service.Contracts.Responses
 {
-    public class NewJobResponse
+    public abstract class Response
     {
         public bool IsSuccess { get; set; }
         public string? ErrorMessage { get; set; }
-
-        public NewJobResponse(string? errorMessage = "")
+        public Response(string? errorMessage = "")
         {
             // If theres no error message, request was successful
             IsSuccess = string.IsNullOrEmpty(errorMessage);

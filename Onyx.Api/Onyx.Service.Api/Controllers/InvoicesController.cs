@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Onyx.Service.Application.Managers;
 using Onyx.Service.Contracts.Dtos.Invoices;
 using Onyx.Service.Infrastructure.DataAccess.Interfaces;
 
@@ -7,21 +8,25 @@ namespace Onyx.Service.Api.Controllers
     [Route("[controller]")]
     public class InvoicesController : BaseController
     {
-        public InvoicesController(IInvoicesRepo repo, ILogger logger) : base(logger)
+        #region Private Properties
+        private InvoicesManager _manager { get; }
+
+        #endregion
+        #region Constructor
+        public InvoicesController(InvoicesManager invoicesManager, ILogger<InvoicesController> logger) : base(logger)
         {
-            _repo = repo;
+            _manager = invoicesManager;
             _logger = logger;
         }
+        #endregion
 
-        private IInvoicesRepo _repo { get; }
-        private ILogger _logger { get; }
 
         [HttpPost("create-invoice")]
         public async Task<ActionResult> CreateInvoice(CreateInvoiceDto newInvoiceDto)
         {
             try
             {
-                await _repo.CreateInvoice(newInvoiceDto);
+                await _manager.CreateInvoice(newInvoiceDto);
 
                 return NoContent();
             }

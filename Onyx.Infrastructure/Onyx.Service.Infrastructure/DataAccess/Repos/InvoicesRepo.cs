@@ -30,7 +30,7 @@ namespace Onyx.Service.Infrastructure.DataAccess.Repos
                 await sqlConnection.OpenAsync();
 
                 string query = @"INSERT INTO Invoices(TechnicianId, CustomerId, JobId) 
-                                    VALUES @TechnicianId, @CustomerId, @JobId)";
+                                    VALUES (@TechnicianId, @CustomerId, @JobId)";
 
                 using var command = new SqlCommand(query, sqlConnection);
 

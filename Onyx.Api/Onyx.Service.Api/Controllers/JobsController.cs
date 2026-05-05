@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Onyx.Service.Application.Managers;
 using Onyx.Service.Contracts.Dtos.Jobs;
+using Onyx.Service.Contracts.Responses;
 using Onyx.Service.Domain.Enums;
 
 namespace Onyx.Service.Api.Controllers

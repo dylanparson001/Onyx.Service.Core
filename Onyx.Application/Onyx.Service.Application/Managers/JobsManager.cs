@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using Onyx.Service.Application.Constants;
 using Onyx.Service.Contracts.Dtos.Jobs;
+using Onyx.Service.Contracts.Responses;
 using Onyx.Service.Domain.Enums;
 using Onyx.Service.Domain.Models;
 using Onyx.Service.Infrastructure.DataAccess.DbModels.Jobs;
