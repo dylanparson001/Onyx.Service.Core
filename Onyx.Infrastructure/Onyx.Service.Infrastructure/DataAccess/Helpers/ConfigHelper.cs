@@ -5,15 +5,12 @@ namespace Onyx.Service.Infrastructure.DataAccess.Helpers
 {
     public class ConfigHelper
     {
-
-
-
         private static string GetSetting(string key)
         {
             var _configuration = new ConfigurationBuilder()
-          .SetBasePath(Directory.GetCurrentDirectory())
-          .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-          .Build();
+                    .SetBasePath(Directory.GetCurrentDirectory())
+                    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                    .Build();
 
             return _configuration[key];
         }

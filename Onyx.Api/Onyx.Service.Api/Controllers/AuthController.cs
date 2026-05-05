@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using Onyx.Service.Contracts.Dtos.Auth;
 using Onyx.Service.Contracts.Models;
 using Onyx.Service.Contracts.Responses;
+using Onyx.Service.Domain.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
