@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Onyx.Service.Application.Managers;
 using Onyx.Service.Contracts.Dtos.Jobs;
 using Onyx.Service.Contracts.Responses;
@@ -14,7 +15,7 @@ namespace Onyx.Service.Api.Controllers
         {
             _jobsManager = jobsManager;
         }
-
+        [Authorize]
         [HttpGet("get-active-jobs")]
         public async Task<ActionResult<List<JobDto>>> GetJobsForTechnicianForServiceDate(long id, string serviceDate)
         {
@@ -24,13 +25,13 @@ namespace Onyx.Service.Api.Controllers
 
                 return Ok(jobDtos);
             }
-            catch (Exception ex)
+            catch (Exception ex)    
             {
                 _logger.LogError(ex, ex.Message);
                 return BadRequest($"Error retrieving jobs: {ex.Message}");
             }
         }
-
+        [Authorize(Roles = "Office, Manager, Admin")]
         [HttpPost("create-job")]
         public async Task<ActionResult<NewJobResponse>> CreateNewJob(NewJobRequest jobDto)
         {
@@ -50,6 +51,7 @@ namespace Onyx.Service.Api.Controllers
             }
         }
 
+        [Authorize(Roles = "Office, Manager, Admin")]
         [HttpPost("cancel-job")]
         public async Task<ActionResult> CancelJob(long id, CancellationReason removalReason)
         {

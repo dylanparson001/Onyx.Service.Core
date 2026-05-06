@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Onyx.Service.Application.Managers;
@@ -23,7 +24,8 @@ namespace Onyx.Service.Api.Controllers
         {
             _manager = authManager;
         }
-
+        
+        [Authorize(Roles = "Office, Manager, Admin")]
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterDto dto)
         {
@@ -46,11 +48,14 @@ namespace Onyx.Service.Api.Controllers
             {
                 User user = await _manager.Login(dto);
 
+                if (user == null)
+                    return BadRequest("User not found");
+
                 return Ok(await _manager.CreateJwtResponseAsync(user));
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
     }

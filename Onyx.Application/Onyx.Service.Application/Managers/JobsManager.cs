@@ -9,19 +9,14 @@ using Onyx.Service.Infrastructure.DataAccess.Interfaces;
 
 namespace Onyx.Service.Application.Managers
 {
-    public class JobsManager
+    public class JobsManager(IJobsRepo jobsRepo, ILogger<JobsManager> logger)
     {
         #region Private Properties
-        private IJobsRepo _jobsRepo { get; }
-        private ILogger _logger { get; }
-        #endregion
+        private IJobsRepo _jobsRepo { get; } = jobsRepo;
+        private ILogger _logger { get; } = logger;
 
+        #endregion
         #region Constructor
-        public JobsManager(IJobsRepo jobsRepo, ILogger<JobsManager> logger)
-        {
-            _jobsRepo = jobsRepo;
-            _logger = logger;
-        }
         #endregion
 
         #region Public Properties

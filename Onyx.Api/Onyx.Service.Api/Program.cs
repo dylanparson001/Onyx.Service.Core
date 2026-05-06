@@ -71,6 +71,7 @@ public partial class Program
         // Managers
         builder.Services.AddScoped<JobsManager>();
         builder.Services.AddScoped<InvoicesManager>();
+        builder.Services.AddScoped<AuthManager>();
 
         // SeriLog
         builder.Host.UseSerilog((context, configuration) =>
@@ -100,8 +101,8 @@ public partial class Program
 
         app.UseHttpsRedirection();
 
-        app.UseAuthorization();
         app.UseAuthentication();
+        app.UseAuthorization();
 
         app.MapControllers();
 

@@ -7,19 +7,14 @@ using System.Text;
 
 namespace Onyx.Service.Application.Managers
 {
-    public class InvoicesManager
+    public class InvoicesManager(IInvoicesRepo invoiceRepo, ILogger<InvoicesManager> logger)
     {
         #region Private Properties
-        private IInvoicesRepo _invoiceRepo { get; }
-        private ILogger<InvoicesManager> _logger { get; }
-        #endregion
+        private IInvoicesRepo _invoiceRepo { get; } = invoiceRepo;
+        private ILogger<InvoicesManager> _logger { get; } = logger;
 
+        #endregion
         #region Constructor
-        public InvoicesManager(IInvoicesRepo invoiceRepo, ILogger<InvoicesManager> logger)
-        {
-            _invoiceRepo = invoiceRepo;
-            this._logger = logger;
-        }
         #endregion
 
         #region Public Methods

@@ -14,28 +14,19 @@ using System.Text;
 
 namespace Onyx.Service.Application.Managers
 {
-    public class AuthManager
-    {
-        private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly IConfiguration _configuration;
-        private readonly ILogger<AuthManager> _logger;
-
-        public AuthManager(UserManager<User> userManager,
-            SignInManager<User> signinManager,
-            RoleManager<IdentityRole> roleManager,
-            IConfiguration configuration,
-            ILogger<AuthManager> logger
-
+    public class AuthManager(
+        UserManager<User> userManager,
+        SignInManager<User> signinManager,
+        RoleManager<IdentityRole> roleManager,
+        IConfiguration configuration,
+        ILogger<AuthManager> logger
             )
-        {
-            _userManager = userManager;
-            _signInManager = signinManager;
-            _roleManager = roleManager;
-            _configuration = configuration;
-            _logger = logger;
-        }
+    {
+        private readonly UserManager<User> _userManager = userManager;
+        private readonly SignInManager<User> _signInManager = signinManager;
+        private readonly RoleManager<IdentityRole> _roleManager = roleManager;
+        private readonly IConfiguration _configuration = configuration;
+        private readonly ILogger<AuthManager> _logger = logger;
 
         public async Task<User> RegisterUser(RegisterDto dto)
         {
