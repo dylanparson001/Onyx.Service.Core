@@ -6,7 +6,7 @@ namespace Onyx.Service.Contracts.Responses
 {
     public class CreateInvoiceResponse : Response
     {
-        public CreateInvoiceResponse(string? errorMessage = "")
+        public CreateInvoiceResponse(string? errorMessage = "") : base(errorMessage)
         {
             
         }

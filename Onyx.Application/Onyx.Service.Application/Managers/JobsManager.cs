@@ -33,32 +33,29 @@ namespace Onyx.Service.Application.Managers
         /// <returns>A task that represents the asynchronous operation.</returns>
         public async Task<NewJobResponse> CreateJob(Job job)
         {
-            NewJobResponse newJobResponse = new();
             try
             {
                 if (job == null)
-                    throw new Exception(JobExceptionConstants.NullJobError);
+                    return new NewJobResponse(JobExceptionMessageConstants.NullJobError);
 
                 if (job.ScheduledStartTime >= job.ScheduledEndTime)
-                    throw new Exception(JobExceptionConstants.StartTimeGreaterError);
+                    return new NewJobResponse(JobExceptionMessageConstants.StartTimeGreaterError);
 
                 if (string.IsNullOrEmpty(job.JobDescription))
-                    throw new Exception(JobExceptionConstants.JobDescriptionEmptyError);
+                    return new NewJobResponse(JobExceptionMessageConstants.JobDescriptionEmptyError);
 
                 if (job.Status != JobStatus.Scheduled && job.Status != JobStatus.Pending)
-                    throw new Exception(JobExceptionConstants.JobStatusShouldBeScheduledOrPending);
+                    throw new Exception(JobExceptionMessageConstants.JobStatusShouldBeScheduledOrPending);
 
                 await _jobsRepo.CreateJob(JobDb.ConvertFromJobModel(job));
 
-                return newJobResponse;
+                return new NewJobResponse();
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "JobsManager Create Job Error");
 
-                newJobResponse.IsSuccess = false;
-                newJobResponse.ErrorMessage = ex.Message;
-                return newJobResponse;
+                return new NewJobResponse(ex.Message);
             }
 
         }
@@ -75,15 +72,15 @@ namespace Onyx.Service.Application.Managers
             try
             {
                 if (id <= 0)
-                    throw new Exception($"{id} is not valid");
+                    throw new Exception(JobExceptionMessageConstants.IdInvalid);
 
                 if (string.IsNullOrEmpty(serviceDate))
-                    throw new Exception("Service date was empty");
+                    throw new Exception(JobExceptionMessageConstants.ServiceDateWasEmpty);
 
                 bool isValidDate = DateTime.TryParse(serviceDate, out DateTime dateTimeService);
 
                 if (!isValidDate)
-                    throw new Exception($"Service date was not valid");
+                    throw new Exception(JobExceptionMessageConstants.ServiceDateWasInvalid);
 
                 List<JobDb> result = await _jobsRepo.GetJobsByTechnicianIdAndDate(id, dateTimeService);
 

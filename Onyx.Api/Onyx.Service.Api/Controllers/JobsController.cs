@@ -42,7 +42,7 @@ namespace Onyx.Service.Api.Controllers
 
                 NewJobResponse newJobResponse = await _jobsManager.CreateJob(jobDto.ToJob());
 
-                return Ok(newJobResponse);
+                return newJobResponse.IsSuccess ? Ok(newJobResponse) : BadRequest(newJobResponse);
             }
             catch (Exception ex)
             {

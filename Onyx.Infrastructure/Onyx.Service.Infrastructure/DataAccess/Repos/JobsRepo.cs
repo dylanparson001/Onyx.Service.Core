@@ -1,6 +1,8 @@
 ﻿using Microsoft.Data.SqlClient;
 using Onyx.Service.Domain.Enums;
+using Onyx.Service.Infrastructure.DataAccess.ColumnEnums;
 using Onyx.Service.Infrastructure.DataAccess.DbModels.Jobs;
+using Onyx.Service.Infrastructure.DataAccess.Extensions;
 using Onyx.Service.Infrastructure.DataAccess.Helpers;
 using Onyx.Service.Infrastructure.DataAccess.Interfaces;
 
@@ -84,28 +86,31 @@ namespace Onyx.Service.Infrastructure.DataAccess.Repos
                 {
                     while (await reader.ReadAsync())
                     {
-                        var id = (long)reader["Id"];
-                        var jobGuid = (Guid)reader["JobGuid"];
-                        var techId = (long)reader["TechnicianId"];
-                        var customerId = (long)reader["CustomerId"];
+                        long id = reader.Get<long, JobsColumnEnum>(JobsColumnEnum.Id);
+                        Guid jobGuid = reader.Get<Guid, JobsColumnEnum>(JobsColumnEnum.JobGuid);
+                        long techId = reader.Get<long, JobsColumnEnum>(JobsColumnEnum.TechnicianId);
+                        long customerId = reader.Get<long, JobsColumnEnum>(JobsColumnEnum.CustomerId);
 
-                        var scheduledStartTime = (DateTime)reader["ScheduledStartTime"];
-                        var scheduledEndTime = (DateTime)reader["ScheduledEndTime"];
-                        var dateOfService = (DateTime)reader["ServiceDate"];
+                        DateTime scheduledStartTime = reader.Get<DateTime, JobsColumnEnum>(JobsColumnEnum.ScheduledStartTime);
+                        DateTime scheduledEndTime = reader.Get<DateTime, JobsColumnEnum>(JobsColumnEnum.ScheduledEndTime);
+                        DateTime dateOfService = reader.Get<DateTime, JobsColumnEnum>(JobsColumnEnum.ServiceDate);
 
-                        var isCompleted = (bool)reader["IsCompleted"];
+                        bool isCompleted = reader.Get<bool, JobsColumnEnum>(JobsColumnEnum.IsCompleted);
 
-                        var jobDescription = reader["JobDescription"].ToString();
+                        string? jobDescription = reader.Get<string, JobsColumnEnum>(JobsColumnEnum.JobDescription);
 
-                        var status = Enum.Parse<JobStatus>(reader["Status"].ToString()!);
+                        JobStatus status = reader.Get<JobStatus, JobsColumnEnum>(JobsColumnEnum.Status);
 
-                        DateTime actualStartTime = new();
-                        if (!string.IsNullOrEmpty(reader["ActualStartTime"].ToString()))
-                            actualStartTime = (DateTime)reader["ActualStartTime"];
+                        DateTime actualStartTime = reader.Get<DateTime, JobsColumnEnum>(JobsColumnEnum.ActualStartTime);
+                        DateTime actualEndTime = reader.Get<DateTime, JobsColumnEnum>(JobsColumnEnum.ActualEndTime);
 
-                        DateTime actualEndTime = new();
-                        if (!string.IsNullOrEmpty(reader["ActualStartTime"].ToString()))
-                            actualStartTime = (DateTime)reader["ActualStartTime"];
+                        //DateTime actualStartTime = new();
+                        //if (!string.IsNullOrEmpty(reader["ActualStartTime"].ToString()))
+                        //    actualStartTime = (DateTime)reader["ActualStartTime"];
+
+                        //DateTime actualEndTime = new();
+                        //if (!string.IsNullOrEmpty(reader["ActualStartTime"].ToString()))
+                        //    actualStartTime = (DateTime)reader["ActualStartTime"];
 
                         JobDb jobToAdd = new()
                         {

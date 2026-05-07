@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Onyx.Service.Application.Managers;
 using Onyx.Service.Contracts.Dtos.Invoices;
+using Onyx.Service.Contracts.Responses;
 using Onyx.Service.Infrastructure.DataAccess.Interfaces;
 
 namespace Onyx.Service.Api.Controllers
@@ -22,13 +23,43 @@ namespace Onyx.Service.Api.Controllers
 
 
         [HttpPost("create-invoice")]
-        public async Task<ActionResult> CreateInvoice(CreateInvoiceDto newInvoiceDto)
+        public async Task<ActionResult<CreateInvoiceResponse>> CreateInvoice(CreateInvoiceDto newInvoiceDto)
         {
             try
             {
-                await _manager.CreateInvoice(newInvoiceDto);
+                var response = await _manager.CreateInvoice(newInvoiceDto);
 
-                return NoContent();
+                return response.IsSuccess ? Ok(response) : BadRequest(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("get-invoices-technician")]
+        public async Task<ActionResult<List<InvoicesDto>>> GetInvoicesByTechnician(long technicianId, DateTime serviceDate)
+        {
+            try
+            {
+                List<InvoicesDto> result = await _manager.GetInvoicesByTechnicianAndDate(technicianId, serviceDate);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("get-invoices-customer")]
+        public async Task<ActionResult<List<InvoicesDto>>> GetInvoicesByCustomer(long customerId, DateTime serviceDate)
+        {
+            try
+            {
+                List<InvoicesDto> result = await _manager.GetInvoicesByCustomerAndDate(customerId, serviceDate);
+
+                return Ok(result);
             }
             catch (Exception ex)
             {
