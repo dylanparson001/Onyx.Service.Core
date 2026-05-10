@@ -68,7 +68,7 @@ namespace Onyx.Service.Infrastructure.DataAccess.Repos
                 string query = @"SELECT Id, JobGuid, TechnicianId, CustomerId, ScheduledStartTime, ScheduledEndTime, 
                                     ActualStartTime, ActualEndTime, IsCompleted, JobDescription, Status, RemovedAt, RemovedReason, 
                                     ServiceDate 
-                                    FROM Jobs 
+                                    FROM Jobs WITH (NOLOCK)
                                     WHERE TechnicianId = @TechnicianId AND ServiceDate = @ServiceDate AND RemovedAt IS NULL
                                     ORDER BY ScheduledStartTime";
 

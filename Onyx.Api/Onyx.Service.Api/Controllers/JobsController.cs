@@ -52,7 +52,7 @@ namespace Onyx.Service.Api.Controllers
         }
 
         [Authorize(Roles = "Office, Manager, Admin")]
-        [HttpPost("cancel-job")]
+        [HttpPut("cancel-job")]
         public async Task<ActionResult> CancelJob(long id, CancellationReason removalReason)
         {
             try

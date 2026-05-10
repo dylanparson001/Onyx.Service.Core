@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Onyx.Service.Application.Managers;
 using Onyx.Service.Contracts.Dtos.Invoices;
 using Onyx.Service.Contracts.Responses;
@@ -37,7 +38,9 @@ namespace Onyx.Service.Api.Controllers
             }
         }
 
+        [Authorize(Roles ="Admin, Office, Manager")]
         [HttpGet("get-invoices-technician")]
+        
         public async Task<ActionResult<List<InvoicesDto>>> GetInvoicesByTechnician(long technicianId, DateTime serviceDate)
         {
             try
@@ -52,6 +55,7 @@ namespace Onyx.Service.Api.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin, Office, Manager")]
         [HttpGet("get-invoices-customer")]
         public async Task<ActionResult<List<InvoicesDto>>> GetInvoicesByCustomer(long customerId, DateTime serviceDate)
         {
