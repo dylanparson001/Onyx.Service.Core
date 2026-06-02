@@ -3,6 +3,7 @@ using FakeItEasy;
 using Microsoft.Extensions.Logging;
 using Onyx.Service.Application.Constants;
 using Onyx.Service.Application.Managers;
+using Onyx.Service.Contracts.Dtos.Jobs;
 using Onyx.Service.Domain.Enums;
 using Onyx.Service.Domain.Models;
 using Onyx.Service.Infrastructure.DataAccess.Interfaces;
@@ -45,7 +46,7 @@ namespace Onyx.Service.Application.Tests.JobsManagerTests
 
             Assert.IsFalse(response.IsSuccess);
             Assert.IsNotEmpty(response.ErrorMessage!);
-            Assert.AreEqual(response.ErrorMessage, JobExceptionConstants.StartTimeGreaterError);
+            Assert.AreEqual(response.ErrorMessage, JobExceptionMessageConstants.StartTimeGreaterError);
 
         }
 
@@ -69,7 +70,15 @@ namespace Onyx.Service.Application.Tests.JobsManagerTests
 
             Assert.IsFalse(response.IsSuccess);
             Assert.IsNotEmpty(response.ErrorMessage!);
-            Assert.AreEqual(response.ErrorMessage, JobExceptionConstants.JobDescriptionEmptyError);
+            Assert.AreEqual(response.ErrorMessage, JobExceptionMessageConstants.JobDescriptionEmptyError);
+        }
+
+        [TestMethod]
+        public async Task GetActiveJobsByTechnicianIdAndServiceDate_EmptyDate_ReturnsValidationError()
+        {
+            JobsManager jobsManager = new(_mockJobsRepo!, _mockLogger!);
+
+            Assert.Throws<Exception>(() => jobsManager.GetActiveJobsByTechnicianIdAndServiceDate(1, ""));
         }
 
     }

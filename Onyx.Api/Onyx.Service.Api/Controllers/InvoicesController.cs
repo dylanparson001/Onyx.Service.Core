@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Onyx.Service.Application.Managers;
 using Onyx.Service.Contracts.Dtos.Invoices;
+using Onyx.Service.Contracts.Responses;
 using Onyx.Service.Infrastructure.DataAccess.Interfaces;
 
 namespace Onyx.Service.Api.Controllers
@@ -7,23 +10,60 @@ namespace Onyx.Service.Api.Controllers
     [Route("[controller]")]
     public class InvoicesController : BaseController
     {
-        public InvoicesController(IInvoicesRepo repo, ILogger logger) : base(logger)
+        #region Private Properties
+        private InvoicesManager _manager { get; }
+
+        #endregion
+        #region Constructor
+        public InvoicesController(InvoicesManager invoicesManager, ILogger<InvoicesController> logger) : base(logger)
         {
-            _repo = repo;
+            _manager = invoicesManager;
             _logger = logger;
         }
+        #endregion
 
-        private IInvoicesRepo _repo { get; }
-        private ILogger _logger { get; }
 
         [HttpPost("create-invoice")]
-        public async Task<ActionResult> CreateInvoice(CreateInvoiceDto newInvoiceDto)
+        public async Task<ActionResult<CreateInvoiceResponse>> CreateInvoice(CreateInvoiceDto newInvoiceDto)
         {
             try
             {
-                await _repo.CreateInvoice(newInvoiceDto);
+                var response = await _manager.CreateInvoice(newInvoiceDto);
 
-                return NoContent();
+                return response.IsSuccess ? Ok(response) : BadRequest(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [Authorize(Roles ="Admin, Office, Manager")]
+        [HttpGet("get-invoices-technician")]
+        
+        public async Task<ActionResult<List<InvoicesDto>>> GetInvoicesByTechnician(long technicianId, DateTime serviceDate)
+        {
+            try
+            {
+                List<InvoicesDto> result = await _manager.GetInvoicesByTechnicianAndDate(technicianId, serviceDate);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [Authorize(Roles = "Admin, Office, Manager")]
+        [HttpGet("get-invoices-customer")]
+        public async Task<ActionResult<List<InvoicesDto>>> GetInvoicesByCustomer(long customerId, DateTime serviceDate)
+        {
+            try
+            {
+                List<InvoicesDto> result = await _manager.GetInvoicesByCustomerAndDate(customerId, serviceDate);
+
+                return Ok(result);
             }
             catch (Exception ex)
             {

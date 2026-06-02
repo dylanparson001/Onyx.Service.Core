@@ -10,5 +10,7 @@ namespace Onyx.Service.Domain.Models
         Technician,
         [Description("Manager")]
         Manager,
+        [Description("Office")]
+        Office,
     }
 }

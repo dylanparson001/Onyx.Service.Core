@@ -12,7 +12,7 @@ namespace Onyx.Service.Infrastructure.DataAccess.Helpers
                     .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                     .Build();
 
-            return _configuration[key];
+            return _configuration[key]!;
         }
 
         public static string GetDefaultConnection()
