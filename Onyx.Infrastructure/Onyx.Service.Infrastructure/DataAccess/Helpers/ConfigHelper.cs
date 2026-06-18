@@ -7,12 +7,12 @@ namespace Onyx.Service.Infrastructure.DataAccess.Helpers
     {
         private static string GetSetting(string key)
         {
-            var _configuration = new ConfigurationBuilder()
+            var configuration = new ConfigurationBuilder()
                     .SetBasePath(Directory.GetCurrentDirectory())
                     .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                     .Build();
 
-            return _configuration[key]!;
+            return configuration[key]!;
         }
 
         public static string GetDefaultConnection()

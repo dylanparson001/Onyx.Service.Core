@@ -1,7 +1,7 @@
 ﻿using Microsoft.Data.SqlClient;
 using Onyx.Service.Domain.Enums;
-using Onyx.Service.Infrastructure.DataAccess.ColumnEnums;
 using Onyx.Service.Infrastructure.DataAccess.DbModels.Jobs;
+using Onyx.Service.Infrastructure.DataAccess.Enums.ColumnEnums;
 using Onyx.Service.Infrastructure.DataAccess.Extensions;
 using Onyx.Service.Infrastructure.DataAccess.Helpers;
 using Onyx.Service.Infrastructure.DataAccess.Interfaces;
@@ -99,7 +99,9 @@ namespace Onyx.Service.Infrastructure.DataAccess.Repos
 
                         string? jobDescription = reader.Get<string, JobsColumnEnum>(JobsColumnEnum.JobDescription);
 
-                        JobStatus status = reader.Get<JobStatus, JobsColumnEnum>(JobsColumnEnum.Status);
+                        string? statusString = reader.Get<string, JobsColumnEnum>(JobsColumnEnum.Status);
+
+                        JobStatus status = Enum.Parse<JobStatus>(statusString!);
 
                         DateTime actualStartTime = reader.Get<DateTime, JobsColumnEnum>(JobsColumnEnum.ActualStartTime);
                         DateTime actualEndTime = reader.Get<DateTime, JobsColumnEnum>(JobsColumnEnum.ActualEndTime);
