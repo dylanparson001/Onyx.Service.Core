@@ -2,11 +2,11 @@
 using Microsoft.Identity.Client;
 using Onyx.Service.Contracts.Dtos.Invoices;
 using Onyx.Service.Domain.Models;
-using Onyx.Service.Infrastructure.DataAccess.ColumnEnums;
 using Onyx.Service.Infrastructure.DataAccess.DbModels.Contacts.Customers;
 using Onyx.Service.Infrastructure.DataAccess.DbModels.Invoices;
 using Onyx.Service.Infrastructure.DataAccess.DbModels.Jobs;
 using Onyx.Service.Infrastructure.DataAccess.Enums;
+using Onyx.Service.Infrastructure.DataAccess.Enums.ColumnEnums;
 using Onyx.Service.Infrastructure.DataAccess.Extensions;
 using Onyx.Service.Infrastructure.DataAccess.Helpers;
 using Onyx.Service.Infrastructure.DataAccess.Interfaces;
