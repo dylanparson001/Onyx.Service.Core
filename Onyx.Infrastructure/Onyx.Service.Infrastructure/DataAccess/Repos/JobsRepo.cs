@@ -1,17 +1,21 @@
 ﻿using Microsoft.Data.SqlClient;
-using Onyx.Service.Domain.Enums;
+using Microsoft.Extensions.Configuration;
 using Onyx.Service.Infrastructure.DataAccess.DbModels.Jobs;
 using Onyx.Service.Infrastructure.DataAccess.Enums.ColumnEnums;
 using Onyx.Service.Infrastructure.DataAccess.Extensions;
-using Onyx.Service.Infrastructure.DataAccess.Helpers;
 using Onyx.Service.Infrastructure.DataAccess.Interfaces;
+using Onyx.Shared.Enums;
 
 namespace Onyx.Service.Infrastructure.DataAccess.Repos
 {
     public class JobsRepo : IJobsRepo
     {
-        public JobsRepo()
+        private string _connectionString;
+
+        public JobsRepo(IConfiguration configuration)
         {
+            _connectionString = configuration.GetConnectionString("DefaultConnection")
+    ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
         }
         public async Task CreateJob(JobDb job)
@@ -21,9 +25,8 @@ namespace Onyx.Service.Infrastructure.DataAccess.Repos
 
             try
             {
-                var connectionString = ConfigHelper.GetDefaultConnection();
 
-                using var sqlConnection = new SqlConnection(connectionString);
+                using var sqlConnection = new SqlConnection(_connectionString);
 
                 await sqlConnection.OpenAsync();
 
@@ -61,9 +64,8 @@ namespace Onyx.Service.Infrastructure.DataAccess.Repos
             {
                 List<JobDb> jobs = [];
 
-                var connectionString = ConfigHelper.GetDefaultConnection();
 
-                using var connection = new SqlConnection(connectionString);
+                using var connection = new SqlConnection(_connectionString);
 
                 string query = @"SELECT Id, JobGuid, TechnicianId, CustomerId, ScheduledStartTime, ScheduledEndTime, 
                                     ActualStartTime, ActualEndTime, IsCompleted, JobDescription, Status, RemovedAt, RemovedReason, 
@@ -148,9 +150,8 @@ namespace Onyx.Service.Infrastructure.DataAccess.Repos
         {
             try
             {
-                string connectionString = ConfigHelper.GetDefaultConnection();
 
-                using var sqlConnection = new SqlConnection(connectionString);
+                using var sqlConnection = new SqlConnection(_connectionString);
 
                 DateTime removedAt = DateTime.Now;
 
@@ -181,9 +182,8 @@ namespace Onyx.Service.Infrastructure.DataAccess.Repos
         {
             try
             {
-                string connectionString = ConfigHelper.GetDefaultConnection();
 
-                using var sqlConnection = new SqlConnection(connectionString);
+                using var sqlConnection = new SqlConnection(_connectionString);
 
                 string query = @"UPDATE Jobs 
                     SET JobDescription = @NewDescription

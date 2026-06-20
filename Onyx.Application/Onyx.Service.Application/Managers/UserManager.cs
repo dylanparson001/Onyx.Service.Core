@@ -1,10 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
-using Onyx.Service.Contracts.Dtos.Users;
 using Onyx.Service.Infrastructure.DataAccess.DbModels.Contacts.Employees;
 using Onyx.Service.Infrastructure.DataAccess.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using Onyx.Shared.Contracts.Users;
 
 namespace Onyx.Service.Application.Managers
 {
@@ -24,13 +21,16 @@ namespace Onyx.Service.Application.Managers
         #endregion
 
         #region Public Methods
-        public async Task<List<EmployeeDto>> GetActiveTechnicians()
+        public async Task<List<EmployeeDto>> GetActiveTechniciansByDate(DateTime date)
         {
+
             List<EmployeeDto> activeTechnicians = [];
 
+            if (date == DateTime.MinValue)
+                return activeTechnicians;
             try
             {
-                List<EmployeeDb> employeeDbs = await _userRepo.GetActiveTechnicians();
+                List<EmployeeDb> employeeDbs = await _userRepo.GetActiveTechniciansByDate(date);
 
                 activeTechnicians = employeeDbs.Select(x => x.ToDto()).ToList();
 

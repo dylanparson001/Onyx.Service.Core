@@ -8,10 +8,11 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.3.9" />
+    <PackageReference Include="Onyx.Shared.Contracts" Version="1.0.2" />
+    <PackageReference Include="Onyx.Shared.Enums" Version="1.0.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Onyx.Contracts\Onyx.Service.Contracts\Onyx.Service.Contracts.csproj" />
     <ProjectReference Include="..\..\Onyx.Domain\Onyx.Service.Domain\Onyx.Service.Domain.csproj" />
     <ProjectReference Include="..\..\Onyx.Infrastructure\Onyx.Service.Infrastructure\Onyx.Service.Infrastructure.csproj" />
   </ItemGroup>

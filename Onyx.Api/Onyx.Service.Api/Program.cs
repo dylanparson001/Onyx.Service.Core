@@ -16,6 +16,15 @@ public partial class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
+        builder.Configuration
+            .SetBasePath(AppContext.BaseDirectory)
+            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+
+        builder.Services.AddWindowsService(options =>
+        {
+            options.ServiceName = "OnyxServiceCore";
+        });
+
         var authConnectionString = builder.Configuration.GetConnectionString("AuthConnection");
 
         builder.Services.AddDbContext<AuthDataContext>(options =>

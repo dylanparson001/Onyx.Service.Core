@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Onyx.Service.Application.Managers;
-using Onyx.Service.Contracts.Dtos.Invoices;
-using Onyx.Service.Contracts.Responses;
-using Onyx.Service.Infrastructure.DataAccess.Interfaces;
+using Onyx.Shared.Contracts.Invoices;
+using Onyx.Shared.Contracts.Responses;
 
 namespace Onyx.Service.Api.Controllers
 {

@@ -1,7 +1,6 @@
-﻿using Onyx.Service.Contracts.Dtos.Users;
-using Onyx.Service.Domain.Auth;
-using Onyx.Service.Infrastructure.DataAccess.DbModels.Contacts.BaseTypes;
-using System.Net;
+﻿using Onyx.Service.Infrastructure.DataAccess.DbModels.Contacts.BaseTypes;
+using Onyx.Shared.Contracts.Users;
+using Onyx.Shared.Enums;
 
 namespace Onyx.Service.Infrastructure.DataAccess.DbModels.Contacts.Employees
 {

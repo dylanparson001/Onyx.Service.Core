@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Onyx.Service.Application.Managers;
-using Onyx.Service.Contracts.Dtos.Users;
+using Onyx.Shared.Contracts.Users;
 
 namespace Onyx.Service.Api.Controllers
 {
@@ -18,13 +18,13 @@ namespace Onyx.Service.Api.Controllers
         #region Get Methods
 
         [HttpGet("get-active-technicians")]
-        public async Task<ActionResult<List<EmployeeDto>>> GetAciveTechnicians()
+        public async Task<ActionResult<List<EmployeeDto>>> GetAciveTechnicians(DateTime date)
         {
             List<EmployeeDto> activeTechs = [];
 
             try
             {
-                activeTechs = await _userManager.GetActiveTechnicians();
+                activeTechs = await _userManager.GetActiveTechniciansByDate(date);
             }
             catch (Exception ex)
             {

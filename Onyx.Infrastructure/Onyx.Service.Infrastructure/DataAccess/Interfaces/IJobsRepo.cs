@@ -1,5 +1,5 @@
-﻿using Onyx.Service.Domain.Enums;
-using Onyx.Service.Infrastructure.DataAccess.DbModels.Jobs;
+﻿using Onyx.Service.Infrastructure.DataAccess.DbModels.Jobs;
+using Onyx.Shared.Enums;
 
 namespace Onyx.Service.Infrastructure.DataAccess.Interfaces
 {

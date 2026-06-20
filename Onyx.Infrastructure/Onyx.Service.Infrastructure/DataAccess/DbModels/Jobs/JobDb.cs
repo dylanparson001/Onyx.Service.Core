@@ -1,6 +1,5 @@
-﻿using Onyx.Service.Contracts.Dtos.Jobs;
-using Onyx.Service.Domain.Enums;
-using Onyx.Service.Domain.Models;
+﻿using Onyx.Shared.Contracts.Jobs;
+using Onyx.Shared.Enums;
 
 namespace Onyx.Service.Infrastructure.DataAccess.DbModels.Jobs
 {

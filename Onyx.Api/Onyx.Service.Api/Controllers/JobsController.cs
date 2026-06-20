@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Onyx.Service.Application.Managers;
-using Onyx.Service.Contracts.Dtos.Jobs;
-using Onyx.Service.Contracts.Responses;
-using Onyx.Service.Domain.Enums;
+using Onyx.Shared.Contracts.Jobs;
+using Onyx.Shared.Contracts.Responses;
+using Onyx.Shared.Enums;
 
 namespace Onyx.Service.Api.Controllers
 {

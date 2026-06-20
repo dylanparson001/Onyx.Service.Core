@@ -1,15 +1,10 @@
-﻿using Castle.Core.Logging;
-using FakeItEasy;
+﻿using FakeItEasy;
 using Microsoft.Extensions.Logging;
 using Onyx.Service.Application.Constants;
 using Onyx.Service.Application.Managers;
-using Onyx.Service.Contracts.Dtos.Jobs;
-using Onyx.Service.Domain.Enums;
-using Onyx.Service.Domain.Models;
 using Onyx.Service.Infrastructure.DataAccess.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using Onyx.Shared.Contracts.Jobs;
+using Onyx.Shared.Enums;
 
 namespace Onyx.Service.Application.Tests.JobsManagerTests
 {
