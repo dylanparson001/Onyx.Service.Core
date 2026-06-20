@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Onyx.Service.Application.Managers;
 using Onyx.Shared.Contracts.Users;
 
 namespace Onyx.Service.Api.Controllers
 {
     [Route("[controller]")]
+    [Authorize(Roles = "Office, Manager, Admin")]
     public class UserController : BaseController
     {
         private readonly UserManager _userManager;

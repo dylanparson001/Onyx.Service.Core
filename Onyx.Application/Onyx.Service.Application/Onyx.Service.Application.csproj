@@ -9,7 +9,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.3.9" />
     <PackageReference Include="Onyx.Shared.Contracts" Version="1.0.2" />
-    <PackageReference Include="Onyx.Shared.Enums" Version="1.0.2" />
+    <PackageReference Include="Onyx.Shared.Enums" Version="1.0.3" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Onyx.Service.Application.Managers;
-using Onyx.Service.Contracts.Models;
+using Onyx.Service.Domain.Models;
 using Onyx.Shared.Contracts.Auth;
 using Onyx.Shared.Contracts.Responses;
 

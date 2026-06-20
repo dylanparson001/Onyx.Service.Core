@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Onyx.Service.Application.Managers;
-using Onyx.Service.Contracts.Models;
+using Onyx.Service.Domain.Models;
 using Onyx.Service.Infrastructure.DataAccess.Auth.Context;
 using Onyx.Service.Infrastructure.DataAccess.Interfaces;
 using Onyx.Service.Infrastructure.DataAccess.Repos;

@@ -6,7 +6,7 @@ using Onyx.Service.Infrastructure.DataAccess.Interfaces;
 using Onyx.Shared.Contracts.Jobs;
 using Onyx.Shared.Enums;
 
-namespace Onyx.Service.Application.Tests.JobsManagerTests
+namespace Onyx.Service.Application.Tests.ManagerTests
 {
     [TestClass]
     public class JobsManagerTests
