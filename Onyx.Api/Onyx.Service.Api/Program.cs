@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Onyx.Service.Application.Managers;
-using Onyx.Service.Contracts.Models;
+using Onyx.Service.Domain.Models;
 using Onyx.Service.Infrastructure.DataAccess.Auth.Context;
 using Onyx.Service.Infrastructure.DataAccess.Interfaces;
 using Onyx.Service.Infrastructure.DataAccess.Repos;
@@ -15,6 +15,15 @@ public partial class Program
     private static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
+
+        builder.Configuration
+            .SetBasePath(AppContext.BaseDirectory)
+            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+
+        builder.Services.AddWindowsService(options =>
+        {
+            options.ServiceName = "OnyxServiceCore";
+        });
 
         var authConnectionString = builder.Configuration.GetConnectionString("AuthConnection");
 

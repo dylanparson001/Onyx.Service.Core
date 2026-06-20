@@ -1,6 +1,5 @@
-﻿using Onyx.Service.Contracts.Dtos.Invoices;
-using Onyx.Service.Infrastructure.DataAccess.DbModels.Invoices;
-using Onyx.Service.Infrastructure.DataAccess.DbModels.Jobs;
+﻿using Onyx.Service.Infrastructure.DataAccess.DbModels.Invoices;
+using Onyx.Shared.Contracts.Invoices;
 
 namespace Onyx.Service.Infrastructure.DataAccess.Interfaces
 {

@@ -1,11 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
-using Onyx.Service.Contracts.Dtos.Invoices;
-using Onyx.Service.Contracts.Responses;
 using Onyx.Service.Infrastructure.DataAccess.DbModels.Invoices;
 using Onyx.Service.Infrastructure.DataAccess.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using Onyx.Shared.Contracts.Invoices;
+using Onyx.Shared.Contracts.Responses;
 
 namespace Onyx.Service.Application.Managers
 {

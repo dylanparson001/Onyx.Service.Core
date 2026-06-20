@@ -1,9 +1,7 @@
-﻿using Microsoft.Data.SqlClient;
-using Onyx.Service.Domain.Auth;
-using Onyx.Service.Domain.Enums;
-using Onyx.Service.Infrastructure.DataAccess.DbModels.Contacts.Customers;
+﻿using Onyx.Service.Infrastructure.DataAccess.DbModels.Contacts.Customers;
 using Onyx.Service.Infrastructure.DataAccess.DbModels.Contacts.Employees;
 using Onyx.Service.Infrastructure.DataAccess.DbModels.Jobs;
+using Onyx.Shared.Enums;
 
 namespace Onyx.Service.Infrastructure.DataAccess.Helpers
 {
@@ -15,55 +13,55 @@ namespace Onyx.Service.Infrastructure.DataAccess.Helpers
         /// <returns></returns>
         public static async Task CreateTestProfiles()
         {
-            try
-            {
-                var _connectionString = ConfigHelper.GetDefaultConnection();
+            //try
+            //{
+            //    var _connectionString = ConfigHelper.GetDefaultConnection();
 
-                using var connection = new SqlConnection(_connectionString);
+            //    using var connection = new SqlConnection(_connectionString);
 
-                var testEmployess = CreateEmployeeModels();
+            //    var testEmployess = CreateEmployeeModels();
 
-                await connection.OpenAsync();
+            //    await connection.OpenAsync();
 
-                //Console.WriteLine("Starting to create employees...");
+            //    //Console.WriteLine("Starting to create employees...");
 
-                //foreach (var employee in testEmployess)
-                //{
-                //    string query = CreateTestEmployeeQuery(employee);
+            //    //foreach (var employee in testEmployess)
+            //    //{
+            //    //    string query = CreateTestEmployeeQuery(employee);
 
 
-                //    using var command = new SqlCommand(query, connection);
+            //    //    using var command = new SqlCommand(query, connection);
 
-                //    await command.ExecuteNonQueryAsync();
+            //    //    await command.ExecuteNonQueryAsync();
 
-                //}
-                //Console.WriteLine("Starting to create customers...");
+            //    //}
+            //    //Console.WriteLine("Starting to create customers...");
 
-                //foreach (var customer in CreateCustomerModels())
-                //{
-                //    string query = CreateTestCustomerQuery(customer);
+            //    //foreach (var customer in CreateCustomerModels())
+            //    //{
+            //    //    string query = CreateTestCustomerQuery(customer);
 
-                //    using var command = new SqlCommand(query, connection);
+            //    //    using var command = new SqlCommand(query, connection);
 
-                //    await command.ExecuteNonQueryAsync();
-                //}
+            //    //    await command.ExecuteNonQueryAsync();
+            //    //}
 
-                Console.WriteLine("Starting to create jobs...");
+            //    Console.WriteLine("Starting to create jobs...");
 
-                foreach (var job in CreateJobModels())
-                {
-                    string query = CreateTestJobsQuery(job);
-                    using var command = new SqlCommand(query, connection);
-                    await command.ExecuteNonQueryAsync();
-                }
+            //    foreach (var job in CreateJobModels())
+            //    {
+            //        string query = CreateTestJobsQuery(job);
+            //        using var command = new SqlCommand(query, connection);
+            //        await command.ExecuteNonQueryAsync();
+            //    }
 
-                await connection.CloseAsync();
+            //    await connection.CloseAsync();
 
-            }
-            catch (Exception ex)
-            {
+            //}
+            //catch (Exception ex)
+            //{
 
-            }
+            //}
         }
 
         private static List<EmployeeDb> CreateEmployeeModels()

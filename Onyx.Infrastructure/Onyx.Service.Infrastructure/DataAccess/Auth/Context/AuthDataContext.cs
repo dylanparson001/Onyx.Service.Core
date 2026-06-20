@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Onyx.Service.Contracts.Models;
+using Onyx.Service.Domain.Models;
 
 namespace Onyx.Service.Infrastructure.DataAccess.Auth.Context
 {

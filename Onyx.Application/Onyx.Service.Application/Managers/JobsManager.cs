@@ -1,11 +1,10 @@
 ﻿using Microsoft.Extensions.Logging;
 using Onyx.Service.Application.Constants;
-using Onyx.Service.Contracts.Dtos.Jobs;
-using Onyx.Service.Contracts.Responses;
-using Onyx.Service.Domain.Enums;
-using Onyx.Service.Domain.Models;
 using Onyx.Service.Infrastructure.DataAccess.DbModels.Jobs;
 using Onyx.Service.Infrastructure.DataAccess.Interfaces;
+using Onyx.Shared.Contracts.Jobs;
+using Onyx.Shared.Contracts.Responses;
+using Onyx.Shared.Enums;
 
 namespace Onyx.Service.Application.Managers
 {
@@ -107,6 +106,11 @@ namespace Onyx.Service.Application.Managers
             {
                 _logger.LogError(ex, "JobsManager RemoveJob Error");
             }
+        }
+
+        public async Task<NewJobResponse> CreateJob(object value)
+        {
+            throw new NotImplementedException();
         }
         #endregion
 

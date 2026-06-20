@@ -1,25 +1,22 @@
 ﻿using Microsoft.Data.SqlClient;
-using Microsoft.Identity.Client;
-using Onyx.Service.Contracts.Dtos.Invoices;
-using Onyx.Service.Domain.Models;
-using Onyx.Service.Infrastructure.DataAccess.DbModels.Contacts.Customers;
+using Microsoft.Extensions.Configuration;
 using Onyx.Service.Infrastructure.DataAccess.DbModels.Invoices;
-using Onyx.Service.Infrastructure.DataAccess.DbModels.Jobs;
 using Onyx.Service.Infrastructure.DataAccess.Enums;
 using Onyx.Service.Infrastructure.DataAccess.Enums.ColumnEnums;
 using Onyx.Service.Infrastructure.DataAccess.Extensions;
-using Onyx.Service.Infrastructure.DataAccess.Helpers;
 using Onyx.Service.Infrastructure.DataAccess.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using Onyx.Shared.Contracts.Invoices;
 
 namespace Onyx.Service.Infrastructure.DataAccess.Repos
 {
     public class InvoicesRepo : IInvoicesRepo
     {
-        public InvoicesRepo()
+        private string _connectionString;
+
+        public InvoicesRepo(IConfiguration configuration)
         {
+            _connectionString = configuration.GetConnectionString("DefaultConnection")
+                ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
         }
         public async Task CreateInvoice(CreateInvoiceDto newInvoice)
@@ -29,9 +26,8 @@ namespace Onyx.Service.Infrastructure.DataAccess.Repos
 
             try
             {
-                var connectionString = ConfigHelper.GetDefaultConnection();
 
-                using var sqlConnection = new SqlConnection(connectionString);
+                using var sqlConnection = new SqlConnection(_connectionString);
 
                 await sqlConnection.OpenAsync();
 
@@ -87,9 +83,8 @@ namespace Onyx.Service.Infrastructure.DataAccess.Repos
         {
             List<InvoiceDb> dbListToReturn = [];
 
-            var connectionString = ConfigHelper.GetDefaultConnection();
 
-            using var sqlConnection = new SqlConnection(connectionString);
+            using var sqlConnection = new SqlConnection(_connectionString);
 
             await sqlConnection.OpenAsync();
 

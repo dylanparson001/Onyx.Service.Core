@@ -1,14 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 using Onyx.Service.Application.Managers;
-using Onyx.Service.Contracts.Dtos.Auth;
-using Onyx.Service.Contracts.Models;
-using Onyx.Service.Contracts.Responses;
 using Onyx.Service.Domain.Models;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
+using Onyx.Shared.Contracts.Auth;
+using Onyx.Shared.Contracts.Responses;
 
 namespace Onyx.Service.Api.Controllers
 {

@@ -1,24 +1,29 @@
 ﻿using Microsoft.Data.SqlClient;
-using Onyx.Service.Domain.Auth;
+using Microsoft.Extensions.Configuration;
 using Onyx.Service.Infrastructure.DataAccess.Constants;
 using Onyx.Service.Infrastructure.DataAccess.DbModels.Contacts.Employees;
 using Onyx.Service.Infrastructure.DataAccess.Enums.ColumnEnums;
 using Onyx.Service.Infrastructure.DataAccess.Extensions;
-using Onyx.Service.Infrastructure.DataAccess.Helpers;
 using Onyx.Service.Infrastructure.DataAccess.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using Onyx.Shared.Enums;
 
 namespace Onyx.Service.Infrastructure.DataAccess.Repos
 {
     public class UserRepo : IUserRepo
     {
+        private string _connectionString;
+
+        public UserRepo(IConfiguration configuration)
+        {
+            _connectionString = configuration.GetConnectionString("DefaultConnection")
+    ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+
+        }
         public async Task CreateEmployee(EmployeeDb employeeDb)
         {
             try
             {
-                using var sqlConnection = new SqlConnection(ConfigHelper.GetDefaultConnection());
+                using var sqlConnection = new SqlConnection(_connectionString);
 
                 await sqlConnection.OpenAsync();
 
@@ -36,18 +41,18 @@ namespace Onyx.Service.Infrastructure.DataAccess.Repos
             }
         }
 
-        public async Task<List<EmployeeDb>> GetActiveTechnicians()
+        public async Task<List<EmployeeDb>> GetActiveTechniciansByDate(DateTime date)
         {
             List<EmployeeDb> activeTechnicians = [];
 
             try
             {
-                using var sqlConnection = new SqlConnection(ConfigHelper.GetDefaultConnection());
+                using var sqlConnection = new SqlConnection(_connectionString);
 
 
                 await sqlConnection.OpenAsync();
 
-                var sqlCommand = new SqlCommand(EmployeeDbConstants.GetActiveTechniciansQuery, sqlConnection);
+                var sqlCommand = new SqlCommand(EmployeeDbConstants.GetActiveTechniciansByDateQuery(date), sqlConnection);
 
                 await using var reader = await sqlCommand.ExecuteReaderAsync();
 

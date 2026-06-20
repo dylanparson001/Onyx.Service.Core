@@ -7,7 +7,7 @@ namespace Onyx.Service.Infrastructure.DataAccess.Interfaces
 {
     public interface IUserRepo
     {
-        Task<List<EmployeeDb>> GetActiveTechnicians();
+        Task<List<EmployeeDb>> GetActiveTechniciansByDate(DateTime date);
         Task CreateEmployee(EmployeeDb employeeDb);
         Task<List<EmployeeDb>> GetOfficeStaff();
     }

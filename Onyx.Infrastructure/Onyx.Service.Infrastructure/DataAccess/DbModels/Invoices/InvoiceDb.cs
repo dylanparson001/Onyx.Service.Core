@@ -1,4 +1,4 @@
-﻿using Onyx.Service.Contracts.Dtos.Invoices;
+﻿using Onyx.Shared.Contracts.Invoices;
 
 namespace Onyx.Service.Infrastructure.DataAccess.DbModels.Invoices
 {

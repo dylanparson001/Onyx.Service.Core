@@ -24,24 +24,29 @@ namespace Onyx.Service.Infrastructure.DataAccess.Constants
                 $" '{employee.PhoneNumber}', '{employee.City}', '{employee.State}', '{employee.ZipCode}', '{employee.Email}')";
         }
 
-        internal static string GetActiveTechniciansQuery = @"SELECT [Id]
-                                                              ,[FirstName]
-                                                              ,[LastName]
-                                                              ,[Address]
-                                                              ,[PhoneNumber]
-                                                              ,[City]
-                                                              ,[State]
-                                                              ,[ZipCode]
-                                                              ,[Email]
-                                                              ,[HireDate]
-                                                              ,[TerminationDate]
-                                                              ,[Access]
-                                                              ,[Role]
-                                                              ,[Username]
-                                                              ,[DaysAvailable]
-                                                          FROM [OnyxDb].[dbo].[Employees]
-                                                          WHERE Role = 'Technician' AND TerminationDate IS NULL
-                                                        ";
+        internal static string GetActiveTechniciansByDateQuery(DateTime date)
+        {
+            return @$"
+                    SELECT employee.Id,
+			                schedule.ScheduledDates,
+			                employee.FirstName,
+			                employee.LastName,
+			                employee.Address,
+			                employee.PhoneNumber,
+			                employee.City,
+			                employee.State,
+			                employee.ZipCode,
+			                employee.Email,
+			                employee.HireDate,
+			                employee.TerminationDate,
+			                employee.Access,
+			                employee.Role,
+			                employee.Username
+		                FROM Employees employee JOIN EmployeeSchedules schedule
+		                ON (employee.Id = schedule.EmployeeId)
+		                WHERE schedule.ScheduledDates IS NOT NULL
+		                AND schedule.ScheduledDates LIKE  '%{date:d}%'";
+        }
 
         // TODO: Move to Job Db Constants
         internal static string CreateJobsQuery(JobDb job)

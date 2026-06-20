@@ -2,15 +2,12 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
-using Onyx.Service.Contracts.Dtos.Auth;
-using Onyx.Service.Contracts.Models;
-using Onyx.Service.Contracts.Responses;
 using Onyx.Service.Domain.Models;
-using System;
-using System.Collections.Generic;
+using Onyx.Shared.Contracts.Auth;
+using Onyx.Shared.Contracts.Responses;
+using Onyx.Shared.Enums;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Text;
 
 namespace Onyx.Service.Application.Managers
 {
