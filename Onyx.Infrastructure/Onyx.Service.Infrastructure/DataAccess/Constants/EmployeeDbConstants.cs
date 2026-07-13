@@ -42,9 +42,10 @@ namespace Onyx.Service.Infrastructure.DataAccess.Constants
 			                employee.Access,
 			                employee.Role,
 			                employee.Username
-		                FROM Employees employee JOIN EmployeeSchedules schedule
-		                ON (employee.Id = schedule.EmployeeId)
-		                WHERE schedule.ScheduledDates IS NOT NULL
+		            FROM Employees employee 
+                    JOIN EmployeeSchedules schedule
+	                    ON (employee.Id = schedule.EmployeeId)
+		            WHERE schedule.ScheduledDates IS NOT NULL
 		                AND schedule.ScheduledDates LIKE  '%{date:d}%'";
         }
 
